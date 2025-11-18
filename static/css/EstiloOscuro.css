@@ -129,3 +129,40 @@ label[for="cvv"] {
 #cvv::placeholder {
     color: #555 !important;
 }
+/* =============================
+   TARJETAS DE PRODUCTOS EN MODO OSCURO
+   ============================= */
+body.modo-oscuro .product-card {
+    background-color: #1c1c1c !important; /* Fondo oscuro elegante */
+    border: 1px solid #333 !important;     /* Borde sutil */
+    color: #f2f2f2 !important;             /* Texto claro */
+}
+
+/* Títulos de productos */
+body.modo-oscuro .product-card h3,
+body.modo-oscuro .product-card .titulo-producto {
+    color: #ffffff !important;
+}
+
+/* Subtítulos o descripciones */
+body.modo-oscuro .product-card p {
+    color: #d8d8d8 !important;
+}
+
+/* Precio */
+body.modo-oscuro .product-card .precio {
+    color: #FFD93D !important; /* Amarillo PALEES */
+}
+
+/* Botón "Añadir" en modo oscuro */
+body.modo-oscuro .product-card button,
+body.modo-oscuro .product-card .btn-add {
+    background-color: #0A2A66 !important;
+    color: #FFD93D !important;
+    border: 2px solid #FFD93D !important;
+}
+
+body.modo-oscuro .product-card button:hover,
+body.modo-oscuro .product-card .btn-add:hover {
+    background-color: #143C8C !important;
+}
