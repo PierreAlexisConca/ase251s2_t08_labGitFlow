@@ -1,8 +1,12 @@
+from dotenv import load_dotenv
+import os
 import mysql.connector
 from mysql.connector import pooling
-import os
 
-# Configuración usando variables del entorno de Render
+# 1️⃣ Cargar variables del .env
+load_dotenv()
+
+# 2️⃣ Configuración usando variables del entorno
 DB_CONFIG = {
     "host": os.environ.get("DB_HOST"),
     "port": int(os.environ.get("DB_PORT", 3306)),
@@ -12,7 +16,7 @@ DB_CONFIG = {
     "charset": "utf8mb4"
 }
 
-# Crear pool de conexiones
+# 3️⃣ Crear pool de conexiones
 connection_pool = pooling.MySQLConnectionPool(
     pool_name="palees_pool",
     pool_size=5,

@@ -99,7 +99,8 @@
 
                 <!-- Formulario de Contacto (Columna Derecha) -->
                 <div class="lg:col-span-2 bg-white p-8 rounded-xl shadow-custom-medium">
-                    <form action="{{ url_for('contacto') }}" method="POST">
+                    <form id="contact-form" action="{{ url_for('contacto') }}" method="POST">
+
     <div class="mb-6">
         <label for="name" class="block text-palees-text-dark font-semibold mb-2">Nombre</label>
         <input type="text" id="name" name="name" required
