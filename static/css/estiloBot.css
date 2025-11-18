@@ -1,0 +1,132 @@
+/* 📍 CONTENEDOR GENERAL */
+#chatbot-wrapper {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    z-index: 9999;
+}
+
+/* 💬 BOTÓN FLOTANTE */
+#chat-toggle {
+    width: 60px;
+    height: 60px;
+    background: #1613e6;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    font-size: 26px;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease, background 0.3s ease;
+}
+
+#chat-toggle:hover {
+    transform: scale(1.1);
+    background: #0f0dcf;
+}
+
+/* 💬 CAJA DEL CHAT */
+#chatbot-container {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    bottom: 80px;
+    left: 0;
+    width: 320px;
+    height: 430px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+    font-family: 'Poppins', sans-serif;
+    animation: fadeIn 0.3s ease-in-out;
+    color: black !important; /* Texto negro garantizado */
+}
+
+#chatbot-container, 
+#chatbot-container * {
+    color: black !important; /* Fuerza negro en todo contenido */
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.9);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* 🟦 ENCABEZADO */
+#chat-header {
+    background: #1613e6;
+    color: white; /* Header puede seguir blanco si quieres */
+    padding: 12px;
+    text-align: center;
+    font-weight: bold;
+}
+
+/* 📄 CUERPO DEL CHAT */
+#chat-body {
+    flex: 1;
+    padding: 10px;
+    overflow-y: auto;
+    font-size: 14px;
+}
+
+/* ✏️ INPUT */
+#chat-input-area {
+    display: flex;
+    border-top: 1px solid #5555e8;
+}
+
+#user-input {
+    flex: 1;
+    border: none;
+    padding: 10px;
+    font-size: 14px;
+    color: black !important; /* Texto siempre negro */
+}
+
+#user-input:focus {
+    outline: none;
+}
+
+#send-btn {
+    background: #1e25e9;
+    color: black !important; /* Texto siempre negro */
+    border: none;
+    padding: 10px 15px;
+    cursor: pointer;
+}
+
+/* 💬 MENSAJES */
+.message {
+    margin: 6px 0;
+    padding: 8px 10px;
+    border-radius: 10px;
+    max-width: 80%;
+    color: black !important; /* Mensajes siempre negro */
+}
+
+.user {
+    background: #d6d5d5;
+    align-self: flex-end;
+}
+
+.bot {
+    background: #bbcdf8;
+    align-self: flex-start;
+}
+
+/* 📱 RESPONSIVE */
+@media (max-width: 768px) {
+    #chatbot-container {
+        width: 90vw;
+        left: 5vw;
+        bottom: 80px;
+        height: 70vh;
+    }
+}

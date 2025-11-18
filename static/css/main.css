@@ -1,0 +1,598 @@
+/*main.css*/
+body {
+    font-family: 'Inter', sans-serif;
+    color: #333333;
+    background-color: #f0f2f5;
+    overflow-x: hidden;
+    font-display: swap;
+}
+
+.header-logo {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 800;
+    color: #1A237E;
+}
+
+.nav-link.active {
+    color: #F8E178;
+    font-weight: 600;
+}
+
+/* ================================
+    ESTILOS DEL CARRUSEL
+    ================================ */
+.carousel-container {
+    position: relative;
+    overflow: hidden;
+    background: white;
+    width: 100%;
+    height: 500px;
+}
+
+@media (min-width: 768px) {
+    .carousel-container {
+        height: 600px;
+    }
+}
+
+.carousel-track {
+    display: flex;
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: transform;
+    height: 100%;
+}
+
+.carousel-slide {
+    min-width: 100%;
+    position: relative;
+    height: 100%;
+}
+
+.carousel-slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.carousel-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.95);
+    color: #1A237E;
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    border: none;
+}
+
+.carousel-nav-btn:hover {
+    background: #F8E178;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-nav-btn.prev {
+    left: 25px;
+}
+
+.carousel-nav-btn.next {
+    right: 25px;
+}
+
+.carousel-indicators {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+    padding: 8px 16px;
+    background: rgba(0, 0, 0, 0.3);
+    border-radius: 20px;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: none;
+    padding: 0;
+}
+
+.carousel-dot.active {
+    background: #F8E178;
+    width: 30px;
+    border-radius: 5px;
+}
+
+.carousel-content {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.2) 100%);
+}
+
+/* Animaciones del carrusel */
+@keyframes slideInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.carousel-slide.active .carousel-text h2 {
+    animation: slideInUp 0.8s ease-out;
+}
+
+.carousel-slide.active .carousel-text p {
+    animation: slideInUp 0.8s ease-out 0.2s both;
+}
+
+.carousel-slide.active .carousel-text button {
+    animation: slideInUp 0.8s ease-out 0.4s both;
+}
+
+/* Mejora para las tarjetas de producto */
+.product-card {
+    transition: all 0.3s ease-in-out;
+}
+
+.product-card:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    transform: scale(1.05);
+}
+
+/* 🟡 BOTONES DE CANTIDAD (+ y -) */
+.quantity-btn {
+    cursor: pointer;
+    /* ← cambia a manito */
+    transition: background-color 0.25s ease, color 0.25s ease;
+}
+
+.quantity-btn:hover {
+    background-color: #FFD700;
+    /* Amarillo brillante al pasar */
+    color: #000;
+    /* Texto oscuro para contraste */
+}
+
+/* 🟡 LINKS DEL MENÚ DE NAVEGACIÓN */
+nav .nav-link {
+    cursor: pointer;
+    /* ← cambia a manito */
+    transition: color 0.25s ease;
+}
+
+nav .nav-link:hover {
+    color: #FFD700 !important;
+    /* Cambia a amarillo al pasar */
+}
+
+/* ✨ Subrayado animado en links del menú */
+nav .nav-link {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+nav .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    /* separación pequeña debajo del texto */
+    width: 0;
+    height: 2px;
+    background-color: #FFD700;
+    /* Amarillo brillante */
+    transition: width 0.3s ease;
+}
+
+nav .nav-link:hover {
+    color: #FFD700 !important;
+    /* Cambia el color del texto al pasar */
+}
+
+nav .nav-link:hover::after {
+    width: 100%;
+    /* subrayado se extiende suavemente */
+}
+
+.nav-link.active {
+    color: #F8E178;
+    /* palees-yellow */
+    font-weight: 600;
+    position: relative;
+}
+
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #F8E178;
+    /* línea amarilla debajo */
+    border-radius: 2px;
+}
+
+/* ===== Navegación activa (Consolidación) ===== */
+.nav-link {
+    color: #1A237E;
+    /* azul oscuro por defecto */
+    font-weight: 500;
+    position: relative;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #FFD700;
+    /* amarillo brillante al pasar el mouse */
+}
+
+/* Sección activa */
+.nav-link.active {
+    color: #FFD700;
+    /* amarillo brillante */
+    font-weight: 600;
+}
+
+/* Subrayado opcional en el link activo */
+.nav-link.active::after {
+    content: "";
+    position: absolute;
+    bottom: -4px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #FFD700;
+    border-radius: 2px;
+}
+
+/* FONDOS */
+.bg-palees-gray-light {
+    background-color: #F9FAFB;
+    /* gris muy claro, elegante */
+}
+
+.bg-palees-blue {
+    background-color: #1A237E;
+    /* azul intenso */
+}
+
+.bg-palees-yellow {
+    background-color: #F8E178;
+}
+
+/* BORDES */
+.border-palees-yellow {
+    border-color: #F8E178;
+    /* amarillo pastel de marca */
+}
+
+/* TEXTOS */
+.text-palees-blue {
+    color: #1A237E;
+    /* azul intenso */
+}
+
+.text-palees-text-dark {
+    color: #333333;
+    /* gris oscuro legible */
+}
+
+.text-palees-text-medium {
+    color: #666666;
+    /* gris medio, secundario */
+}
+
+.text-palees-yellow {
+    color: #F8E178;
+    /* amarillo pastel */
+}
+
+/* BOTONES */
+.add-to-cart-btn {
+    background-color: #1A237E;
+    color: #F9FAFB;
+    border: none;
+    border-radius: 12px;
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #F8E178;
+    color: #1A237E;
+}
+
+/* Botones del carrito */
+.cart-btn {
+    background-color: #1A237E;
+    color: #F8E178;
+    /* El texto en el botón del header lo da el Tailwind */
+    border: none;
+    border-radius: 12px;
+    padding: 0.5rem 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.cart-btn:hover {
+    background-color: #F8E178;
+    color: #1A237E;
+}
+
+/* Contenedor del carrito */
+.cart-container {
+    background-color: #F9FAFB;
+    border: 2px solid #F8E178;
+    border-radius: 16px;
+    padding: 1rem;
+    color: #333333;
+}
+
+.cart-modal-header h2 {
+    color: #F8E178;
+    font-weight: 700;
+}
+
+/* FOOTER (Consolidado) */
+footer,
+.footer {
+    background-color: #1A237E;
+    color: #FFFFFF;
+    padding: 3rem 2rem;
+    text-align: left;
+    /* Generalmente se alinea a la izquierda en una estructura de grid */
+}
+
+footer a,
+.footer a {
+    color: #FFFFFF;
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.3s ease;
+}
+
+footer a:hover,
+.footer a:hover {
+    color: #FFD700;
+}
+
+footer h4,
+.footer h4 {
+    color: #FFFFFF;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Iconos sociales */
+footer .social-icon,
+.footer .social-icon {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    margin: 0 0.5rem;
+    transition: color 0.3s ease;
+}
+
+footer .social-icon:hover,
+.footer .social-icon:hover {
+    color: #FFD700;
+}
+
+/* Texto de copyright */
+footer .text-sm,
+.footer .text-sm {
+    color: #FFFFFF;
+}
+
+/* ================================
+    CRÍTICO: ESTILOS DEL CARRITO LATERAL
+    (Para animación de apertura y cierre)
+    ================================ */
+
+/* --- Panel Lateral: #cart-panel --- */
+#cart-panel {
+    /* Estado inicial: Fuera de pantalla. */
+    transition: transform 0.3s ease-in-out;
+}
+
+/* Estado ABIERTO (Clase añadida por products.js) */
+#cart-panel.cart-panel-open {
+    transform: translateX(0);
+}
+
+/* --- Overlay/Fondo Negro: #cart-overlay --- */
+#cart-overlay {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Estado ACTIVO (Clase añadida por products.js) */
+#cart-overlay.opacity-50 {
+    opacity: 0.5;
+}
+
+/* ================================
+   CRÍTICO: ESTILOS DE RASTREO DE PEDIDO (image_12a2a6.png)
+   (Para la tarjeta blanca y la barra de estado)
+   ================================ */
+
+/* Contenedor principal de la tarjeta de estado del pedido */
+.card-pedido-status {
+    background-color: white;
+    border-radius: 1rem;
+    /* 16px */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    padding: 2rem;
+}
+
+/* Diseño de la barra de progreso (simulación de pasos) */
+.tracking-steps {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/* Línea de conexión entre los pasos */
+.tracking-steps::before {
+    content: '';
+    position: absolute;
+    top: 25px;
+    left: 10%;
+    right: 10%;
+    height: 3px;
+    background: #E0E0E0;
+    /* Gris claro de la línea */
+    z-index: 1;
+}
+
+.tracking-step {
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    flex: 1;
+}
+
+.tracking-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 8px auto;
+    font-size: 20px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* Estados de la barra de progreso */
+.status-received .tracking-icon {
+    background-color: #1A237E;
+    /* palees-blue */
+    color: white;
+}
+
+.status-sent .tracking-icon {
+    background-color: #F8E178;
+    /* palees-yellow */
+    color: #1A237E;
+}
+
+.status-delivered .tracking-icon {
+    background-color: #4CAF50;
+    /* Verde de entrega (puedes cambiarlo) */
+    color: white;
+}
+
+/* Paso inactivo */
+.status-inactive .tracking-icon {
+    background-color: #E0E0E0;
+    color: #666666;
+}
+
+/* --- Carrito (modal animado) --- */
+#cart-modal {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateX(100%);
+    transition: all 0.3s ease-in-out;
+}
+
+#cart-modal.open {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(0);
+}
+
+.header-logo {
+    font-family: 'Dosis', sans-serif;
+    font-weight: 800;
+    color: #1A237E;
+    /* palees-blue */
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Estilos para la animación de pulsación del micrófono */
+.animate-pulse {
+    animation: pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0.5;
+    }
+}
+
+@media (max-width: 768px) {
+    header nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+/* //para filtros.js// */
+button.selected {
+    background: black;
+    color: white;
+}
+/* Botón "Dejar de Filtrar" - estilo similar al botón del carrito */
+#limpiar-filtros-btn {
+    background-color: #F8E178; /* Amarillo pastel - igual que el carrito */
+    color: #1A237E; /* Azul oscuro - texto igual que el carrito */
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.75rem;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    border: none;
+    cursor: pointer;
+}
+
+#limpiar-filtros-btn:hover {
+    background-color: #FFD700; /* Amarillo más brillante al hover */
+    color: #1A237E;
+    transform: scale(1.05);
+}
+
+#limpiar-filtros-btn:active {
+    transform: scale(0.95);
+}

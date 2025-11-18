@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contacto - Palees</title>
+
+    <!-- 1. DEPENDENCIAS CRÍTICAS: Tailwind CSS, Tipografía y Font Awesome -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloBot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/EstiloOscuro.css') }}">
+</head>
+
+<body>
+    <header class="bg-white shadow-custom-light fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-3xl header-logo cursor-pointer">PALEES</a>
+            <div class="hidden md:flex space-x-8 lg:space-x-12">
+                <a href="{{ url_for('index') }}"
+                    class="nav-link {% if request.path == url_for('index') %}active{% endif %}">
+                    Inicio
+                </a>
+                <a href="{{ url_for('coleccion') }}"
+                    class="nav-link {% if request.path == url_for('coleccion') %}active{% endif %}">
+                    Categorías
+                </a>
+                <a href="{{ url_for('ofertas') }}"
+                    class="nav-link {% if request.path == url_for('ofertas') %}active{% endif %}">
+                    Ofertas
+                </a>
+                <a href="{{ url_for('contacto') }}"
+                    class="nav-link {% if request.path == url_for('contacto') %}active{% endif %}">
+                    Contáctanos
+                </a>
+                <a href="{{ url_for('cuenta') }}"
+                    class="nav-link {% if request.path == url_for('cuenta') %}active{% endif %}">
+                    Mi cuenta
+                </a>
+            </div>
+            <div class="flex items-center">
+                <button id="cart-button"
+                    class="cart-btn bg-palees-yellow text-palees-blue rounded-full px-5 py-2 flex items-center space-x-2 font-semibold text-sm hover:bg-yellow-500 transition-colors duration-300 shadow-sm">
+                    <span>Carrito</span>
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span id="cart-count"
+                        class="bg-palees-blue text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT: Contact Form and Info -->
+    <main class="pt-24">
+        <div class="container mx-auto px-6 py-12">
+            <h1 class="text-4xl font-dosis font-bold text-center text-palees-blue mb-4 titulo-seccion">Ponte en Contacto
+            </h1>
+            <p class="text-center text-palees-text-medium mb-12">¿Tienes alguna pregunta? Escríbenos y te responderemos
+                pronto.</p>
+
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <!-- Información de Contacto (Columna Izquierda) -->
+                <div class="lg:col-span-1 space-y-8 p-6 bg-palees-gray-light rounded-xl shadow-custom-light">
+                    <div class="flex items-start space-x-4">
+                        <i class="fas fa-map-marker-alt text-2xl text-palees-yellow mt-1"></i>
+                        <div>
+                            <p class="font-bold text-palees-text-dark">Nuestra Ubicación</p>
+                            <p class="text-palees-text-medium text-sm">Upis nuevo San luis, Mz. F lt 34</p>
+                            <p class="text-palees-text-medium text-sm">Lima, Perú</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <i class="fas fa-envelope text-2xl text-palees-yellow mt-1"></i>
+                        <div>
+                            <p class="font-bold text-palees-text-dark">Envíanos un Correo</p>
+                            <p class="text-palees-text-medium text-sm">palees@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="flex items-start space-x-4">
+                        <i class="fab fa-whatsapp text-2xl text-palees-yellow mt-1"></i>
+                        <div>
+                            <p class="font-bold text-palees-text-dark">Llámanos</p>
+                            <p class="text-palees-text-medium text-sm">+51 987 654 321</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-palees-border">
+                        <p class="font-bold text-palees-text-dark mb-3">Horario de Atención</p>
+                        <p class="text-palees-text-medium text-sm">Lunes - Viernes: 9:00 AM - 6:00 PM</p>
+                        <p class="text-palees-text-medium text-sm">Sábados: 9:00 AM - 1:00 PM</p>
+                    </div>
+                </div>
+
+                <!-- Formulario de Contacto (Columna Derecha) -->
+                <div class="lg:col-span-2 bg-white p-8 rounded-xl shadow-custom-medium">
+                    <form action="{{ url_for('contacto') }}" method="POST">
+    <div class="mb-6">
+        <label for="name" class="block text-palees-text-dark font-semibold mb-2">Nombre</label>
+        <input type="text" id="name" name="name" required
+            class="w-full px-4 py-2 border border-palees-border rounded-lg focus:outline-none focus:ring-2 focus:ring-palees-yellow">
+    </div>
+    <div class="mb-6">
+        <label for="email" class="block text-palees-text-dark font-semibold mb-2">Correo Electrónico</label>
+        <input type="email" id="email" name="email" required
+            class="w-full px-4 py-2 border border-palees-border rounded-lg focus:outline-none focus:ring-2 focus:ring-palees-yellow">
+    </div>
+    <div class="mb-6">
+        <label for="message" class="block text-palees-text-dark font-semibold mb-2">Mensaje</label>
+        <textarea id="message" name="message" rows="5" required
+            class="w-full px-4 py-2 border border-palees-border rounded-lg focus:outline-none focus:ring-2 focus:ring-palees-yellow"></textarea>
+    </div>
+    <button type="submit"
+        class="w-full bg-palees-blue text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors active:scale-95">
+        Enviar Mensaje
+    </button>
+
+    <!-- Mostrar mensajes de éxito o error -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="mt-4">
+                {% for category, message in messages %}
+                    <div class="p-3 rounded-md {% if category == 'success' %}bg-green-100 text-green-800{% else %}bg-red-100 text-red-800{% endif %}">
+                        {{ message }}
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+</form>
+
+                </div>
+            </div>
+        </div>
+    </main>
+    <!-- OVERLAY DEL CARRITO -->
+    <div id="cart-modal-overlay" class="fixed inset-0 bg-black opacity-0 hidden transition-opacity duration-300 z-40"
+        onclick="toggleCartModal()"></div>
+
+    <!-- MODAL DEL CARRITO (panel derecho) -->
+    <div id="cart-modal"
+        class="cart-modal fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="cart-modal-content flex flex-col h-full">
+            <!-- Cabecera -->
+            <div
+                class="cart-modal-header p-6 border-b border-palees-bg-gray flex justify-between items-center sticky top-0 bg-white z-10">
+                <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2>
+                <button id="close-cart-btn"
+                    class="text-2xl text-blue-600 hover:text-blue-800 transition">&times;</button>
+            </div>
+            <!-- Contenedor productos -->
+            <div id="cart-items-container" class="cart-modal-body flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Productos renderizados dinámicamente -->
+            </div>
+
+            <!-- Footer del modal -->
+            <div class="cart-modal-footer p-6 border-t border-palees-bg-gray">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold">Subtotal:</span>
+                    <span id="cart-subtotal" class="text-lg font-bold">S/ 0.00</span>
+                </div>
+                <button id="checkout-button"
+                    class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900 ">
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- 💖 CHATBOT PALEES - TIENDA DE ROPA SAN LUIS -->
+    <div id="chatbot-wrapper">
+        <!-- Botón flotante -->
+        <button id="chat-toggle">💬</button>
+
+        <!-- Contenedor del chatbot -->
+        <div id="chatbot-container">
+            <div id="chat-header">PaleesBot 💬</div>
+            <div id="chat-body"></div>
+            <div id="chat-input-area">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN DE MODO OSCURO -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
+        <button id="modoBtn"
+            style="background-color:#1A237E; color:white; padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
+            🌙 Modo Oscuro
+        </button>
+    </div>
+    <!-- CRÍTICO: Footer (asegura estilos y coherencia) -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts de JavaScript (usando url_for) -->
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/contacto.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ModoOscuro.js') }}"></script>
+
+</body>
+
+</html>

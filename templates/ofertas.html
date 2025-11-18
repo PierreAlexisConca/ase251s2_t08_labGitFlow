@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ofertas Exclusivas | Polos de Algodón Pima - Palees</title>
+
+    <!-- Fuentes -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+
+    <!-- Tailwind y estilos -->
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloBot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/EstiloOscuro.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/Microfono.css') }}">
+    <!-- Iconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+
+<body class="bg-palees-gray-light text-palees-text-dark overflow-x-hidden">
+    <header class="bg-white shadow-custom-light fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-3xl header-logo cursor-pointer">PALEES</a>
+            <div class="hidden md:flex space-x-8 lg:space-x-12">
+                <a href="{{ url_for('index') }}"
+                    class="nav-link {% if request.path == url_for('index') %}active{% endif %}">
+                    Inicio
+                </a>
+                <a href="{{ url_for('coleccion') }}"
+                    class="nav-link {% if request.path == url_for('coleccion') %}active{% endif %}">
+                    Categorías
+                </a>
+                <a href="{{ url_for('ofertas') }}"
+                    class="nav-link {% if request.path == url_for('ofertas') %}active{% endif %}">
+                    Ofertas
+                </a>
+                <a href="{{ url_for('contacto') }}"
+                    class="nav-link {% if request.path == url_for('contacto') %}active{% endif %}">
+                    Contáctanos
+                </a>
+                <a href="{{ url_for('cuenta') }}"
+                    class="nav-link {% if request.path == url_for('cuenta') %}active{% endif %}">
+                    Mi cuenta
+                </a>
+            </div>
+            <!-- Botón de Búsqueda por Voz -->
+            <button id="voice-search-button"
+                class="text-palees-blue text-2xl p-2 rounded-full hover:bg-gray-100 transition-colors duration-300 relative"
+                title="Búsqueda por Voz">
+                <i class="fas fa-microphone"></i>
+                <!-- Mic active indicator -->
+                <span id="mic-status-indicator"
+                    class="absolute top-1 right-1 h-3 w-3 rounded-full bg-red-500 hidden border-2 border-white"></span>
+            </button>
+            <div class="flex items-center">
+                <button id="cart-button"
+                    class="cart-btn bg-palees-yellow text-palees-blue rounded-full px-5 py-2 flex items-center space-x-2 font-semibold text-sm hover:bg-yellow-500 transition-colors duration-300 shadow-sm">
+                    <span>Carrito</span>
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span id="cart-count"
+                        class="bg-palees-blue text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Contenido principal -->
+    <main class="pt-12 pb-12">
+        <div class="container mx-auto px-6">
+            <!-- Banner -->
+            <div
+                class="relative bg-palees-blue rounded-3xl overflow-hidden mb-10 shadow-custom-medium p-6 md:p-12 text-white">
+                <div class="absolute inset-0 bg-cover bg-center opacity-10"
+                    style="background-image: url('https://placehold.co/1200x400/1A237E/F8E178?text=SALE+PATTERN');">
+                </div>
+                <div class="relative z-10 text-center">
+                    <h1
+                        class="text-5xl md:text-6xl font-dosis font-extrabold text-palees-yellow mb-3 uppercase tracking-wider">
+                        FLASH SALE
+                    </h1>
+                    <p class="text-xl md:text-2xl font-medium mb-6">
+                        <i class="fas fa-bolt text-palees-yellow mr-2"></i> ¡Hasta 40% de Descuento en Polos
+                        Seleccionados!
+                    </p>
+                    <a href="#productos-ofertas"
+                        class="inline-block bg-palees-yellow text-palees-blue font-bold text-lg px-8 py-3 rounded-full uppercase hover:bg-yellow-500 transition-all duration-300 transform hover:scale-105 shadow-lg">
+                        Ver Ofertas Ahora
+                    </a>
+                    <p class="mt-4 text-sm font-light">Ofertas válidas solo por tiempo limitado.</p>
+                </div>
+            </div>
+
+            <!-- Productos -->
+            <section id="productos-ofertas" class="mt-12">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-dosis font-bold text-palees-blue mb-2 titulo-seccion">Polos con Descuento
+                    </h2>
+                    <p class="text-palees-text-medium">Aprovecha precios increíbles en el Algodón Pima más suave.</p>
+                </div>
+                <div id="products-container"
+                    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                </div>
+                <div class="flex justify-center mt-10">
+                    <div id="pagination-container" class="flex space-x-2"></div>
+                </div>
+            </section>
+        </div>
+    </main>
+    <section class="px-10 py-12 bg-palees-background flex justify-center">
+        <div id="products-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            <!-- Tarjeta 1 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/ChaquetaCuero.jpeg') }}"
+                    class="w-full h-72 object-cover">
+                <div class="p-5">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Chaqueta negra de cuero</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Comodidad extrema y durabilidad garantizada.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 59.90</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(59.90*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p01" data-name="Chaqueta negra de cuero"
+                            data-price="{{ '%.2f' | format(59.90*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/ChaquetaCuero.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 2 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/BlusaSeda.jpeg') }}" class="w-full h-72 object-cover">
+                <div class="p-5">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Blusa de Seda</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Fresco, suave y perfecto para cualquier ocasión.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 55.00</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(55.00*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p02" data-name="Blusa de Seda" data-price="{{ '%.2f' | format(55.00*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/BlusaSeda.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 3 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/Jersey.jpeg') }}" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Jersey</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Estilo simple con toque elegante.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 49.90</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(49.90*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p03" data-name="Jersey" data-price="{{ '%.2f' | format(49.90*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/Jersey.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 4 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/VestidoVerano.jpeg') }}"
+                    class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Vestido elegante</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Estilo elegante y fino.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 49.90</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(49.90*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p04" data-name="Vestido elegante" data-price="{{ '%.2f' | format(49.90*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/VestidoVerano.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 5 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/BlusaPlisada.jpeg') }}" class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Blusa Plisada</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Cómoda y casual.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 45.00</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(45.00*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p05" data-name="Blusa Plisada" data-price="{{ '%.2f' | format(45.00*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/BlusaPlisada.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjeta 6 -->
+            <div
+                class="product-card bg-white rounded-xl shadow-custom-medium overflow-hidden transform transition hover:scale-102 hover:shadow-lg">
+                <img src="{{ url_for('static', filename='image/PantalonFormal.jpeg') }}"
+                    class="w-full h-64 object-cover">
+                <div class="p-6">
+                    <h3 class="font-dosis text-xl font-semibold text-palees-blue mb-1">Pantalón Formal</h3>
+                    <p class="text-palees-text-medium text-sm mb-3">Clásico y resistente.</p>
+                    <div class="flex justify-between items-center">
+                        <div>
+                            <span class="text-sm text-gray-400 line-through">S/ 69.90</span>
+                            <span class="text-xl font-bold text-palees-blue ml-2">S/ {{ '%.2f' | format(69.90*0.9)
+                                }}</span>
+                        </div>
+                        <button
+                            class="add-to-cart-btn bg-palees-yellow text-palees-blue px-4 py-1.5 rounded-md font-semibold hover:bg-yellow-500 transition active:scale-95"
+                            data-id="p06" data-name="Pantalón Formal" data-price="{{ '%.2f' | format(69.90*0.9) }}"
+                            data-image="{{ url_for('static', filename='image/PantalonFormal.jpeg') }}">
+                            Añadir
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+
+    <!-- OVERLAY DEL CARRITO -->
+    <div id="cart-modal-overlay" class="fixed inset-0 bg-black opacity-0 hidden transition-opacity duration-300 z-40"
+        onclick="toggleCartModal()"></div>
+
+    <!-- MODAL DEL CARRITO (panel derecho) -->
+    <div id="cart-modal"
+        class="cart-modal fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="cart-modal-content flex flex-col h-full">
+            <!-- Cabecera -->
+            <div
+                class="cart-modal-header p-6 border-b border-palees-bg-gray flex justify-between items-center sticky top-0 bg-white z-10">
+                <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2>
+                <button id="close-cart-btn"
+                    class="text-2xl text-blue-600 hover:text-blue-800 transition">&times;</button>
+            </div>
+            <!-- Contenedor productos -->
+            <div id="cart-items-container" class="cart-modal-body flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Productos renderizados dinámicamente -->
+            </div>
+
+            <!-- Footer del modal -->
+            <div class="cart-modal-footer p-6 border-t border-palees-bg-gray">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold">Subtotal:</span>
+                    <span id="cart-subtotal" class="text-lg font-bold">S/ 0.00</span>
+                </div>
+                <button id="checkout-button"
+                    class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900">
+                    Finalizar Compra
+                </button>
+            </div>
+        </div>
+    </div>
+    <!-- 💖 CHATBOT PALEES - TIENDA DE ROPA SAN LUIS -->
+    <div id="chatbot-wrapper">
+        <!-- Botón flotante -->
+        <button id="chat-toggle">💬</button>
+
+        <!-- Contenedor del chatbot -->
+        <div id="chatbot-container">
+            <div id="chat-header">PaleesBot 💬</div>
+            <div id="chat-body"></div>
+            <div id="chat-input-area">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN DE MODO OSCURO -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
+        <button id="modoBtn"
+            style="background-color:#1A237E; color:white; padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
+            🌙 Modo Oscuro
+        </button>
+    </div>
+
+    <!-- Footer -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/voiceSearch.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Bot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ModoOscuro.js') }}"></script>
+</body>
+
+</html>

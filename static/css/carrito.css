@@ -1,0 +1,80 @@
+/*carrito.css*/
+.cart-modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 0;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    visibility: hidden;
+    opacity: 0;
+    transition: visibility 0s, opacity 0.3s linear, width 0s, transform 0.3s;
+    z-index: 100;
+}
+
+.cart-modal.open {
+    width: 100%;
+    visibility: visible;
+    opacity: 1;
+}
+
+.cart-modal-content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 100%;
+    max-width: 400px;
+    /* Ancho máximo en escritorio */
+    height: 100%;
+    background-color: white;
+    box-shadow: -2px 0 10px rgba(0, 0, 0, 0.2);
+    transform: translateX(100%);
+    transition: transform 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+}
+
+.cart-modal.open .cart-modal-content {
+    transform: translateX(0);
+}
+
+@media (min-width: 768px) {
+    .cart-modal-content {
+        max-width: 400px;
+    }
+}
+
+@media (max-width: 767px) {
+    .cart-modal-content {
+        max-width: 100%;
+        /* Ocupa todo el ancho en móvil */
+    }
+}
+
+.cart-modal-header {
+    padding: 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart-modal-body {
+    flex-grow: 1;
+    padding: 1.5rem;
+    overflow-y: auto;
+    color: #666666;
+    text-align: center;
+}
+
+/* Mensaje de carrito vacío por defecto */
+.cart-modal-body::after {
+    content: "Tu carrito está vacío.";
+    display: block;
+    margin-top: 2rem;
+}
+
+.cart-modal-footer {
+    padding: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+}

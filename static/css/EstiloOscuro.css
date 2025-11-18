@@ -1,0 +1,131 @@
+/* ========== MODO CLARO (Predeterminado) ========== */
+body {
+    background-color: white;
+    color: #222;
+}
+
+/* Secciones normales */
+header,
+section,
+footer {
+    background-color: white;
+    color: #222;
+}
+
+/* ========== MODO OSCURO ACTIVADO ========== */
+body.modo-oscuro {
+    background-color: #111;
+    color: #f2f2f2;
+}
+
+body.modo-oscuro header,
+body.modo-oscuro section,
+body.modo-oscuro footer {
+    background-color: #1a1a1a !important;
+    color: #e0e0e0 !important;
+}
+
+/* ========== BOTÓN DE MODO OSCURO ========== */
+
+/* Modo Claro */
+#modoBtn {
+    background-color: #FFD93D;
+    /* Amarillo */
+    color: #0A2A66;
+    /* Azul oscuro */
+    border: 2px solid #FFD93D;
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: 0.3s;
+    cursor: pointer;
+}
+
+#modoBtn:hover {
+    background-color: #FFE66D;
+}
+
+/* Modo Oscuro */
+body.modo-oscuro #modoBtn {
+    background-color: #0A2A66;
+    /* Azul */
+    color: #FFD93D;
+    /* Amarillo */
+    border: 2px solid #FFD93D;
+}
+
+body.modo-oscuro #modoBtn:hover {
+    background-color: #143C8C;
+}
+
+/* ========== SOLO CAMBIAMOS LOS TEXTOS AZULES ========== */
+/* (No toca negros, ni grises, ni amarillos) */
+
+/* En modo claro no se cambia nada */
+
+/* En modo oscuro → los textos azules se vuelven blancos */
+body.modo-oscuro .texto-azul,
+body.modo-oscuro [class*="text-blue"],
+body.modo-oscuro .azul {
+    color: #ffffff !important;
+}
+
+/* Los textos amarillos SIEMPRE deben seguir amarillos */
+.texto-amarillo,
+[class*="text-yellow"],
+.text-yellow {
+    color: #FFD93D !important;
+}
+
+/* ======= NAVBAR LINKS ======= */
+
+/* Modo Claro: no tocamos nada (usan su estilo actual) */
+
+/* Modo Oscuro - links normales → blancos */
+body.modo-oscuro nav a,
+body.modo-oscuro .navbar a {
+    color: #ffffff !important;
+    /* Blanco */
+}
+
+/* Modo Oscuro - link activo (página donde estoy) → Amarillo */
+body.modo-oscuro nav a.activo,
+body.modo-oscuro .navbar a.activo {
+    color: #FFD93D !important;
+    /* Amarillo */
+}
+
+/* Hover en modo oscuro (cuando pasas el mouse) */
+body.modo-oscuro nav a:hover,
+body.modo-oscuro .navbar a:hover {
+    color: #FFE66D !important;
+    /* Amarillo más suave */
+}
+
+body.modo-oscuro .titulo-seccion {
+    color: #FFD93D !important;
+    /* Amarillo Palees */
+}
+
+/* Botón en modo oscuro */
+body.modo-oscuro #modoBtn {
+    background-color: #0A2A66 !important;
+    color: #FFD93D !important;
+    border-color: #FFD93D !important;
+}
+/* Evitar que los textos del formulario cambien de color */
+#cardNumber,
+#expiryDate,
+#cvv,
+label[for="cardNumber"],
+label[for="expiryDate"],
+label[for="cvv"] {
+    color: #000 !important;
+}
+
+/* También forzamos el texto interno de los inputs */
+#cardNumber::placeholder,
+#expiryDate::placeholder,
+#cvv::placeholder {
+    color: #555 !important;
+}

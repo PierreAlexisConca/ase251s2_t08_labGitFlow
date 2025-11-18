@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi Cuenta | Iniciar Sesión o Registrarse - Palees</title>
+    <!-- Configuración de Fuentes y Tailwind CSS -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloBot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/EstiloOscuro.css') }}">
+</head>
+
+<body>
+    <header class="bg-white shadow-custom-light fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-3xl header-logo cursor-pointer">PALEES</a>
+            <div class="hidden md:flex space-x-8 lg:space-x-12">
+                <a href="{{ url_for('index') }}"
+                    class="nav-link {% if request.path == url_for('index') %}active{% endif %}">
+                    Inicio
+                </a>
+                <a href="{{ url_for('coleccion') }}"
+                    class="nav-link {% if request.path == url_for('coleccion') %}active{% endif %}">
+                    Categorías
+                </a>
+                <a href="{{ url_for('ofertas') }}"
+                    class="nav-link {% if request.path == url_for('ofertas') %}active{% endif %}">
+                    Ofertas
+                </a>
+                <a href="{{ url_for('contacto') }}"
+                    class="nav-link {% if request.path == url_for('contacto') %}active{% endif %}">
+                    Contáctanos
+                </a>
+                <a href="{{ url_for('cuenta') }}"
+                    class="nav-link {% if request.path == url_for('cuenta') %}active{% endif %}">
+                    Mi cuenta
+                </a>
+            </div>
+            <div class="flex items-center">
+                <button id="cart-button"
+                    class="cart-btn bg-palees-yellow text-palees-blue rounded-full px-5 py-2 flex items-center space-x-2 font-semibold text-sm hover:bg-yellow-500 transition-colors duration-300 shadow-sm">
+                    <span>Carrito</span>
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span id="cart-count"
+                        class="bg-palees-blue text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <!-- MAIN CONTENT - Formulario de Cuenta -->
+    <main class="pt-20 account-container">
+        <div class="w-full max-w-lg mx-auto p-4 sm:p-8">
+
+            <!-- Contenedor principal del formulario -->
+            <div class="bg-white rounded-2xl shadow-2xl p-6 sm:p-10 border-t-8 border-palees-blue">
+                <h1 class="text-4xl font-dosis font-extrabold text-palees-blue text-center mb-2 titulo-seccion">
+                    Bienvenido</h1>
+                <p class="text-center text-palees-text-medium mb-8">Administra tu cuenta de forma fácil y segura.</p>
+
+                <!-- Selector de Vista (Login/Register) -->
+                <div class="flex justify-center border-b border-palees-border mb-8 space-x-8">
+                    <button id="login-tab"
+                        class="tab-btn text-lg font-semibold cursor-pointer text-palees-yellow transition-colors duration-200"
+                        onclick="switchForm('login')">
+                        Iniciar Sesión
+                    </button>
+                    <button id="register-tab"
+                        class="tab-btn text-lg font-semibold cursor-pointer text-palees-blue transition-colors duration-200"
+                        onclick="switchForm('register')">
+                        Registrarse
+                    </button>
+                </div>
+
+
+                <!-- ✅ Formulario de INICIO DE SESIÓN -->
+                <form id="login-form" class="space-y-6" method="POST" action="/login">
+                    <div>
+                        <label for="login-email" class="block text-sm font-medium text-palees-text-dark mb-1">Correo
+                            Electrónico</label>
+                        <input type="email" id="login-email" name="email" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                    </div>
+
+                    <div>
+                        <label for="login-password"
+                            class="block text-sm font-medium text-palees-text-dark mb-1">Contraseña</label>
+                        <input type="password" id="login-password" name="password" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                        <a href="#"
+                            class="text-xs text-palees-text-medium hover:text-palees-blue mt-2 block text-right">¿Olvidaste
+                            tu contraseña?</a>
+                    </div>
+
+                    <button type="submit"
+                        class="w-full bg-palees-blue text-white py-3 rounded-xl font-bold text-lg hover:bg-blue-900 transition duration-300 shadow-lg transform hover:scale-[1.01]">
+                        Acceder a Mi Cuenta
+                    </button>
+
+                    <div class="text-center text-sm text-palees-text-medium">
+                        o
+                    </div>
+
+                    <button type="button"
+                        class="w-full bg-palees-yellow text-palees-blue py-3 rounded-xl font-bold flex items-center justify-center space-x-3 border-2 border-palees-yellow hover:bg-yellow-500 transition duration-300">
+                        <i class="fab fa-google"></i>
+                        <span>Iniciar Sesión con Google</span>
+                    </button>
+                </form>
+
+                <!-- ✅ Formulario de REGISTRO (Inicialmente oculto) -->
+                <form id="register-form" class="space-y-6 hidden" method="POST" action="/register">
+                    <div>
+                        <label for="register-name" class="block text-sm font-medium text-palees-text-dark mb-1">Nombre
+                            Completo</label>
+                        <input type="text" id="register-name" name="name" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                    </div>
+
+                    <div>
+                        <label for="register-email" class="block text-sm font-medium text-palees-text-dark mb-1">Correo
+                            Electrónico</label>
+                        <input type="email" id="register-email" name="email" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                    </div>
+
+                    <div>
+                        <label for="register-password"
+                            class="block text-sm font-medium text-palees-text-dark mb-1">Contraseña</label>
+                        <input type="password" id="register-password" name="password" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                        <p class="text-xs text-palees-text-light mt-1">Mínimo 8 caracteres, una mayúscula y un número.
+                        </p>
+                    </div>
+
+                    <div>
+                        <label for="register-confirm-password"
+                            class="block text-sm font-medium text-palees-text-dark mb-1">Confirmar Contraseña</label>
+                        <input type="password" id="register-confirm-password" name="confirm-password" required
+                            class="w-full p-3 border border-palees-border rounded-lg focus:ring-2 focus:ring-palees-yellow focus:border-palees-yellow transition">
+                    </div>
+
+                    <div class="flex items-start">
+                        <input type="checkbox" id="terms-agree" required
+                            class="mt-1 h-4 w-4 text-palees-blue border-palees-border rounded focus:ring-palees-yellow">
+                        <label for="terms-agree" class="ml-2 block text-sm text-palees-text-medium">
+                            Acepto los <a href="#" class="text-palees-blue hover:underline">Términos y Condiciones</a> y
+                            la Política de Privacidad.
+                        </label>
+                    </div>
+                    <button type="submit"
+                        class="w-full bg-palees-yellow text-palees-blue py-3 rounded-xl font-bold text-lg hover:bg-yellow-500 transition duration-300 shadow-lg transform hover:scale-[1.01]">
+                        Crear Cuenta Palees
+                    </button>
+                </form>
+<!-- 💖 CHATBOT PALEES - TIENDA DE ROPA SAN LUIS -->
+    <div id="chatbot-wrapper">
+        <!-- Botón flotante -->
+        <button id="chat-toggle">💬</button>
+
+        <!-- Contenedor del chatbot -->
+        <div id="chatbot-container">
+            <div id="chat-header">PaleesBot 💬</div>
+            <div id="chat-body"></div>
+            <div id="chat-input-area">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+                <!-- ✅ MENSAJES FLASH (ubicación 3: debajo del formulario) -->
+                {% with messages = get_flashed_messages(with_categories=true) %}
+                    {% if messages %}
+                        <div class="mt-4">
+                            {% for category, message in messages %}
+                                <div class="p-3 rounded-lg mb-2 text-sm
+                                    {% if category == 'success' %} bg-green-100 text-green-800
+                                    {% elif category == 'error' %} bg-red-100 text-red-800
+                                    {% else %} bg-blue-100 text-blue-800 {% endif %}">
+                                    {{ message }}
+                                </div>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                {% endwith %}
+
+                <!-- Área de Mensajes -->
+                <div id="message-area" class="mt-4 p-3 rounded-lg text-sm hidden"></div>
+
+            </div>
+        </div>
+    </main>
+    <!-- BOTÓN DE MODO OSCURO -->
+<div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
+        <button id="modoBtn"
+            style="background-color:#1A237E; color:white; padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
+            🌙 Modo Oscuro
+        </button>
+    </div>
+    <!-- OVERLAY DEL CARRITO -->
+    <div id="cart-modal-overlay" class="fixed inset-0 bg-black opacity-0 hidden transition-opacity duration-300 z-40"
+        onclick="toggleCartModal()"></div>
+
+    <!-- MODAL DEL CARRITO (panel derecho) -->
+    <div id="cart-modal"
+        class="cart-modal fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50">
+        <div class="cart-modal-content flex flex-col h-full">
+            <!-- Cabecera -->
+            <div
+                class="cart-modal-header p-6 border-b border-palees-bg-gray flex justify-between items-center sticky top-0 bg-white z-10">
+                <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2>
+                <button id="close-cart-btn"
+                    class="text-2xl text-blue-600 hover:text-blue-800 transition">&times;</button>
+            </div>
+            <!-- Contenedor productos -->
+            <div id="cart-items-container" class="cart-modal-body flex-1 overflow-y-auto p-6 space-y-4">
+                <!-- Productos renderizados dinámicamente -->
+            </div>
+
+            <!-- Footer del modal -->
+            <div class="cart-modal-footer p-6 border-t border-palees-bg-gray">
+                <div class="flex justify-between items-center mb-4">
+                    <span class="text-lg font-bold">Subtotal:</span>
+                    <span id="cart-subtotal" class="text-lg font-bold">S/ 0.00</span>
+                </div>
+                <button id="checkout-button"
+                    class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900">
+                    Finalizar Compra
+                </button>
+            </div>
+    </div>
+
+
+    <!-- FOOTER -->
+    {% include 'footer.html' %}
+
+    <!-- Scripts -->
+    <script src="{{ url_for('static', filename='js/loginregistro.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Bot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/checkout.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ModoOscuro.js') }}"></script>
+
+</body>
+
+</html>

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Finalizar Compra - Tienda de Ropa</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dosis:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/output.css') }}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/cart.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/estiloBot.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/EstiloOscuro.css') }}">
+</head>
+
+<body>
+    <header class="bg-white shadow-custom-light fixed w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="text-3xl header-logo cursor-pointer">PALEES</a>
+            <div class="hidden md:flex space-x-8 lg:space-x-12">
+                <a href="{{ url_for('index') }}"
+                    class="nav-link {% if request.path == url_for('index') %}active{% endif %}">
+                    Inicio
+                </a>
+                <a href="{{ url_for('coleccion') }}"
+                    class="nav-link {% if request.path == url_for('coleccion') %}active{% endif %}">
+                    Categorías
+                </a>
+                <a href="{{ url_for('ofertas') }}"
+                    class="nav-link {% if request.path == url_for('ofertas') %}active{% endif %}">
+                    Ofertas
+                </a>
+                <a href="{{ url_for('contacto') }}"
+                    class="nav-link {% if request.path == url_for('contacto') %}active{% endif %}">
+                    Contáctanos
+                </a>
+                <a href="{{ url_for('cuenta') }}"
+                    class="nav-link {% if request.path == url_for('cuenta') %}active{% endif %}">
+                    Mi cuenta
+                </a>
+            </div>
+            <!-- Botón de Búsqueda por Voz -->
+            <button id="voice-search-button"
+                class="text-palees-blue text-2xl p-2 rounded-full hover:bg-gray-100 transition-colors duration-300 relative"
+                title="Búsqueda por Voz">
+                <i class="fas fa-microphone"></i>
+                <!-- Mic active indicator -->
+                <span id="mic-status-indicator"
+                    class="absolute top-1 right-1 h-3 w-3 rounded-full bg-red-500 hidden border-2 border-white"></span>
+            </button>
+            <div class="flex items-center">
+                <button id="cart-button"
+                    class="cart-btn bg-palees-yellow text-palees-blue rounded-full px-5 py-2 flex items-center space-x-2 font-semibold text-sm hover:bg-yellow-500 transition-colors duration-300 shadow-sm">
+                    <span>Carrito</span>
+                    <i class="fas fa-shopping-cart text-lg"></i>
+                    <span id="cart-count"
+                        class="bg-palees-blue text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">0</span>
+                </button>
+            </div>
+        </nav>
+    </header>
+
+    <main class="pt-24 min-h-screen flex items-center justify-center bg-palees-bg-gray">
+        <div class="bg-white p-10 rounded-lg shadow-custom-medium max-w-lg w-full text-center">
+            <i class="fas fa-shopping-basket text-palees-yellow text-6xl mb-6"></i>
+            <h1 class="text-3xl md:text-4xl font-dosis font-bold text-palees-blue mb-4 titulo-seccion">¡Gracias por tu
+                compra!</h1>
+            <p class="text-palees-text-medium mb-6">Tu pedido ha sido recibido y está siendo procesado.</p>
+            <p class="text-palees-text-dark font-semibold mb-2">Número de pedido: <span id="order-id"
+                    class="text-palees-blue"></span></p>
+            <p class="text-palees-text-dark font-semibold mb-8">Total: <span id="order-total"
+                    class="text-palees-blue"></span></p>
+
+            <div class="flex flex-col gap-4">
+                <a href="/estado-pedido"
+                    class="bg-palees-blue text-white py-3 rounded-lg font-semibold hover:bg-blue-900 transition-colors">
+                    Rastrear mi pedido
+                </a>
+                <a href="/" class="text-palees-text-medium hover:text-palees-blue transition-colors">
+                    Volver a la página de inicio
+                </a>
+            </div>
+        </div>
+    </main>
+
+    <div id="cart-modal" class="cart-modal">
+        <div class="cart-modal-content">
+            <div class="cart-modal-header">
+                <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2> <button id="close-cart-btn"
+                    class="text-2xl">&times;</button>
+            </div>
+            <div id="cart-items-container" class="cart-modal-body"></div>
+            <div class="cart-modal-footer">
+                <div class="flex justify-between items-center"> <span class="text-lg font-bold">Subtotal:</span> <span
+                        id="cart-subtotal" class="text-lg font-bold">S/.0.00</span> </div> <button id="checkout-button"
+                    class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900 titulo-seccion">Finalizar
+                    Compra</button>
+            </div>
+        </div>
+    </div>
+    <!-- 💖 CHATBOT PALEES - TIENDA DE ROPA SAN LUIS -->
+    <div id="chatbot-wrapper">
+        <!-- Botón flotante -->
+        <button id="chat-toggle">💬</button>
+
+        <!-- Contenedor del chatbot -->
+        <div id="chatbot-container">
+            <div id="chat-header">PaleesBot 💬</div>
+            <div id="chat-body"></div>
+            <div id="chat-input-area">
+                <input type="text" id="user-input" placeholder="Escribe tu mensaje...">
+                <button id="send-btn">Enviar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- BOTÓN DE MODO OSCURO -->
+    <div style="position: fixed; bottom: 20px; right: 20px; z-index: 100;">
+        <button id="modoBtn"
+            style="background-color:#1A237E; color:white; padding:10px 15px; border:none; border-radius:8px; cursor:pointer;">
+            🌙 Modo Oscuro
+        </button>
+    </div>
+    <!-- CRÍTICO: Footer (asegura estilos y coherencia) -->
+    {% include 'footer.html' %}
+
+    <script src="{{ url_for('static', filename='js/cart.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/voiceSearch.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/Bot.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/ModoOscuro.js') }}?v=3"></script>
+
+</body>
+
+</html>
