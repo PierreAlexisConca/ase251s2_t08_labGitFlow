@@ -10,6 +10,18 @@ app.secret_key = os.getenv("SECRET_KEY", "clave_secreta")
 # ================================
 # 🌐 RUTAS PRINCIPALES
 # ================================
+@app.route('/send-email', methods=['POST'])
+def send_email():
+    data = request.form
+    name = data.get('name')
+    email = data.get('email')
+    message = data.get('message')
+
+    # Simular envío de correo
+    print(f"Enviando correo desde {email}: {message}")
+
+    return {'status': 'success', 'message': 'Correo enviado'}, 200
+
 
 @app.route('/')
 def index():
