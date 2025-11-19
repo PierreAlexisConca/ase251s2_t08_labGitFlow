@@ -596,3 +596,24 @@ button.selected {
 #limpiar-filtros-btn:active {
     transform: scale(0.95);
 }
+/* Animación para el formulario */
+.form-animate {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.form-animate.show {
+    opacity: 1;
+    transform: translateY(0);
+}
+.msg-animate {
+    opacity: 0;
+    transform: scale(0.95);
+    transition: opacity 0.25s ease, transform 0.25s ease;
+}
+
+.msg-animate.show {
+    opacity: 1;
+    transform: scale(1);
+}
