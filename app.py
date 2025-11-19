@@ -7,6 +7,26 @@ import os
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "clave_secreta")
 
+@app.route('/perfil')
+def perfil():
+    if 'usuario_id' not in session:
+        flash_message("Debes iniciar sesión para ver tu perfil.", "error")
+        return redirect(url_for('cuenta'))
+
+    try:
+        con = get_conn()
+        cur = con.cursor()
+        cur.execute("SELECT nombre, email FROM usuarios WHERE id = %s", (session['usuario_id'],))
+        usuario = cur.fetchone()
+    except Exception as e:
+        print("ERROR PERFIL:", e)
+        flash_message("❌ No se pudo cargar tu perfil.", "error")
+        return redirect(url_for('index'))
+    finally:
+        close_conn(cur, con)
+
+    return render_template("perfil.html", usuario=usuario)
+
 # ================================
 # 🔧 FUNCIONES AUXILIARES
 # ================================
