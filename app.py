@@ -89,8 +89,10 @@ def contacto():
             print("ERROR CONTACTO:", e)
             flash("❌ Hubo un problema al enviar el mensaje.", "error")
         finally:
-            cur.close()
-            con.close()
+            if 'cur' in locals():
+                cur.close()
+            if 'con' in locals():
+                con.close()
 
         return redirect(url_for('contacto'))
 
