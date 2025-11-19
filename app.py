@@ -8,6 +8,23 @@ app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "clave_secreta")
 
 # ================================
+# 🔧 FUNCIONES AUXILIARES
+# ================================
+def close_conn(cur=None, con=None):
+    """Cierra el cursor y la conexión si existen"""
+    if cur:
+        cur.close()
+    if con:
+        con.close()
+
+def flash_message(message, category="info"):
+    """Envía un flash message con categorías consistentes"""
+    categories = ["success", "error", "info"]
+    if category not in categories:
+        category = "info"
+    flash(message, category)
+
+# ================================
 # 🌐 RUTAS PRINCIPALES
 # ================================
 @app.route('/send-email', methods=['POST'])
@@ -19,9 +36,7 @@ def send_email():
 
     # Simular envío de correo
     print(f"Enviando correo desde {email}: {message}")
-
     return {'status': 'success', 'message': 'Correo enviado'}, 200
-
 
 @app.route('/')
 def index():
@@ -68,7 +83,6 @@ def gracias():
 # ================================
 # 💬 FORMULARIO DE CONTACTO
 # ================================
-
 @app.route('/contacto', methods=['GET', 'POST'])
 def contacto():
     if request.method == 'POST':
@@ -84,15 +98,12 @@ def contacto():
                 VALUES (%s, %s, %s)
             """, (name, email, message))
             con.commit()
-            flash("✅ Tu mensaje ha sido enviado correctamente.", "success")
+            flash_message("✅ Tu mensaje ha sido enviado correctamente.", "success")
         except Exception as e:
             print("ERROR CONTACTO:", e)
-            flash("❌ Hubo un problema al enviar el mensaje.", "error")
+            flash_message("❌ Hubo un problema al enviar el mensaje.", "error")
         finally:
-            if 'cur' in locals():
-                cur.close()
-            if 'con' in locals():
-                con.close()
+            close_conn(cur, con)
 
         return redirect(url_for('contacto'))
 
@@ -101,7 +112,6 @@ def contacto():
 # ================================
 # 👤 USUARIOS (REGISTRO / LOGIN / LOGOUT)
 # ================================
-
 @app.route('/register', methods=['POST'])
 def register():
     nombre = request.form['name']
@@ -113,21 +123,17 @@ def register():
     try:
         con = get_conn()
         cur = con.cursor()
-
         cur.execute("""
             INSERT INTO usuarios (nombre, email, password)
             VALUES (%s, %s, %s)
         """, (nombre, email, password_hash))
-
         con.commit()
-        flash("✅ Cuenta creada con éxito. Ahora inicia sesión.", "success")
-
+        flash_message("✅ Cuenta creada con éxito. Ahora inicia sesión.", "success")
     except Exception as e:
         print("ERROR REGISTRO:", e)
-        flash("❌ Este correo ya está registrado o ocurrió un error.", "error")
+        flash_message("❌ Este correo ya está registrado o ocurrió un error.", "error")
     finally:
-        cur.close()
-        con.close()
+        close_conn(cur, con)
 
     return redirect(url_for('cuenta'))
 
@@ -143,24 +149,23 @@ def login():
         usuario = cur.fetchone()
     except Exception as e:
         print("ERROR LOGIN:", e)
-        flash("❌ Error interno al iniciar sesión.", "error")
+        flash_message("❌ Error interno al iniciar sesión.", "error")
         return redirect(url_for('cuenta'))
     finally:
-        cur.close()
-        con.close()
+        close_conn(cur, con)
 
     if usuario and check_password_hash(usuario[1], password):
         session['usuario_id'] = usuario[0]
-        flash("✅ Sesión iniciada correctamente.", "success")
+        flash_message("✅ Sesión iniciada correctamente.", "success")
         return redirect(url_for('index'))
     else:
-        flash("❌ Correo o contraseña incorrectos.", "error")
+        flash_message("❌ Correo o contraseña incorrectos.", "error")
         return redirect(url_for('cuenta'))
 
 @app.route('/logout')
 def logout():
     session.clear()
-    flash("👋 Sesión cerrada.", "info")
+    flash_message("👋 Sesión cerrada.", "info")
     return redirect(url_for('index'))
 
 # ================================
