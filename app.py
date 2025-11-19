@@ -34,8 +34,22 @@ def send_email():
     email = data.get('email')
     message = data.get('message')
 
-    # Simular envío de correo
     print(f"Enviando correo desde {email}: {message}")
+
+    # Guardar log del correo en BD
+    try:
+        con = get_conn()
+        cur = con.cursor()
+        cur.execute("""
+            INSERT INTO email_logs (nombre, email, mensaje)
+            VALUES (%s, %s, %s)
+        """, (name, email, message))
+        con.commit()
+    except Exception as e:
+        print("ERROR LOG EMAIL:", e)
+    finally:
+        close_conn(cur, con)
+
     return {'status': 'success', 'message': 'Correo enviado'}, 200
 
 @app.route('/')
