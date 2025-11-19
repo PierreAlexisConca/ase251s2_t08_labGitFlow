@@ -26,3 +26,5 @@ connection_pool = pooling.MySQLConnectionPool(
 def get_conn():
     """Devuelve una conexión desde el pool."""
     return connection_pool.get_connection()
+
+print("Leyendo DB:", DB_CONFIG)
