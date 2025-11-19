@@ -209,33 +209,40 @@
         onclick="toggleCartModal()"></div>
 
     <!-- MODAL DEL CARRITO (panel derecho) -->
-    <div id="cart-modal"
-        class="cart-modal fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50">
-        <div class="cart-modal-content flex flex-col h-full">
-            <!-- Cabecera -->
-            <div
-                class="cart-modal-header p-6 border-b border-palees-bg-gray flex justify-between items-center sticky top-0 bg-white z-10">
-                <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2>
-                <button id="close-cart-btn"
-                    class="text-2xl text-blue-600 hover:text-blue-800 transition">&times;</button>
-            </div>
-            <!-- Contenedor productos -->
-            <div id="cart-items-container" class="cart-modal-body flex-1 overflow-y-auto p-6 space-y-4">
-                <!-- Productos renderizados dinámicamente -->
-            </div>
+<div id="cart-modal"
+    class="cart-modal fixed right-0 top-0 h-full w-96 bg-white shadow-xl transform translate-x-full transition-transform duration-300 z-50">
 
-            <!-- Footer del modal -->
-            <div class="cart-modal-footer p-6 border-t border-palees-bg-gray">
-                <div class="flex justify-between items-center mb-4">
-                    <span class="text-lg font-bold">Subtotal:</span>
-                    <span id="cart-subtotal" class="text-lg font-bold">S/ 0.00</span>
-                </div>
-                <button id="checkout-button"
-                    class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900">
-                    Finalizar Compra
-                </button>
+    <!-- Contenedor completo -->
+    <div class="cart-modal-content flex flex-col h-full">
+
+        <!-- Cabecera -->
+        <div
+            class="cart-modal-header p-6 border-b border-palees-bg-gray flex justify-between items-center sticky top-0 bg-white z-10">
+            <h2 class="text-2xl font-dosis font-bold text-palees-blue">Tu Carrito</h2>
+            <button id="close-cart-btn"
+                class="text-2xl text-blue-600 hover:text-blue-800 transition">&times;</button>
+        </div>
+
+        <!-- Lista de productos -->
+        <div id="cart-items-container" class="cart-modal-body flex-1 overflow-y-auto p-6 space-y-4">
+        </div>
+
+        <!-- Footer -->
+        <div class="cart-modal-footer p-6 border-t border-palees-bg-gray">
+            <div class="flex justify-between items-center mb-4">
+                <span class="text-lg font-bold">Subtotal:</span>
+                <span id="cart-subtotal" class="text-lg font-bold">S/ 0.00</span>
             </div>
+            <button id="checkout-button"
+                class="w-full bg-palees-blue text-white py-3 rounded-lg mt-4 font-semibold hover:bg-blue-900">
+                Finalizar Compra
+            </button>
+        </div>
+
     </div>
+
+</div>
+
 
 
     <!-- FOOTER -->

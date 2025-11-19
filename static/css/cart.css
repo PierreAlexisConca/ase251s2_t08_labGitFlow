@@ -26,23 +26,19 @@
     position: fixed;
     top: 0;
     right: -450px;
-    /* inicia fuera de la pantalla */
     width: 100%;
     max-width: 420px;
     height: 100%;
     background-color: #FDFBF5;
-    /* gris cálido */
     box-shadow: -8px 0 20px rgba(0, 0, 0, 0.25);
     border-left: 4px solid #F8E178;
-    /* borde amarillo Palees */
     display: flex;
     flex-direction: column;
-    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    transition: right 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94), opacity 0.3s ease;
 }
 
 .cart-modal.open .cart-modal-content {
     right: 0;
-    /* se desliza a la vista */
 }
 
 /* Cabecera del modal */
@@ -52,11 +48,8 @@
     justify-content: space-between;
     align-items: center;
     background-color: #1A237E;
-    /* azul Palees */
     color: #F8E178;
-    /* amarillo Palees */
     border-bottom: 2px solid #F8E178;
-    /* detalle amarillo */
     font-weight: bold;
 }
 
@@ -67,7 +60,28 @@
     flex-grow: 1;
 }
 
-/* Estilo de los productos dentro del carrito */
+/* Scroll personalizado */
+.cart-modal-body::-webkit-scrollbar {
+    width: 6px;
+}
+
+.cart-modal-body::-webkit-scrollbar-thumb {
+    background-color: #1A237E;
+    border-radius: 3px;
+}
+
+.cart-modal-body::-webkit-scrollbar-track {
+    background-color: #E5E5E5;
+}
+
+/* Productos dentro del carrito */
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
 .cart-item-details {
     flex-grow: 1;
 }
@@ -76,17 +90,14 @@
     font-weight: 600;
     margin-bottom: 0.25rem;
     color: #1A237E;
-    /* palees-text-dark */
 }
 
 .cart-item-price {
-    color: #666666;
-    /* palees-text-medium */
+    color: #1A237E;
 }
 
 .cart-item-remove-btn {
     background-color: #F44336;
-    /* rojo */
     color: #fff;
     border: none;
     border-radius: 6px;
@@ -101,17 +112,18 @@
 
 .cart-item-remove-btn:hover {
     background-color: #D32F2F;
-    /* rojo más oscuro */
+}
+
+.cart-item-remove-btn:focus {
+    outline: 2px solid #F8E178;
+    outline-offset: 2px;
 }
 
 /* Botones de cantidad */
 .quantity-btn {
     background-color: #F8E178;
-    /* amarillo Palees */
     border: 1px solid #D1D5DB;
-    /* borde gris */
     color: #1A237E;
-    /* azul Palees */
     width: 28px;
     height: 28px;
     border-radius: 6px;
@@ -126,16 +138,12 @@
 
 .quantity-btn:hover {
     background-color: #1A237E;
-    /* azul Palees */
     color: #F8E178;
-    /* amarillo Palees */
 }
 
 /* Footer del modal */
 .cart-modal-footer {
     background-color: #1A237E;
-    /* azul Palees */
-    border-top: none;
     padding: 1.5rem;
     display: flex;
     flex-direction: column;
@@ -145,7 +153,6 @@
 /* Subtotal */
 .cart-modal-footer span#cart-subtotal {
     color: #F8E178;
-    /* amarillo Palees */
     font-size: 1.5rem;
     font-weight: bold;
 }
@@ -153,9 +160,7 @@
 /* Botón Finalizar Compra */
 #checkout-button {
     background-color: #F8E178;
-    /* amarillo Palees */
     color: #1A237E;
-    /* azul Palees */
     font-weight: bold;
     padding: 0.75rem 0;
     border-radius: 0.5rem;
@@ -165,53 +170,52 @@
 
 #checkout-button:hover {
     background-color: #f7de5d;
-    /* amarillo más claro */
     transform: scale(1.02);
+}
+
+#checkout-button:focus {
+    outline: 2px solid #F8E178;
+    outline-offset: 2px;
 }
 
 /* Contador de items en el carrito */
 #cart-count {
     background-color: #F8E178;
-    /* amarillo Palees */
     color: #1A237E;
-    /* azul Palees */
     font-weight: bold;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-}
-
-/* Scroll del body dentro del modal */
-.cart-modal-body::-webkit-scrollbar {
-    width: 6px;
-}
-
-.cart-modal-body::-webkit-scrollbar-thumb {
-    background-color: #1A237E;
-    /* azul Palees */
-    border-radius: 3px;
-}
-
-.cart-modal-body::-webkit-scrollbar-track {
-    background-color: #E5E5E5;
-    /* gris de fondo */
 }
 
 /* Mensaje cuando el carrito está vacío */
 .cart-modal-empty {
     color: #1A237E;
-    /* azul Palees */
     font-weight: bold;
     font-size: 1.25rem;
     text-align: center;
     margin-top: 4rem;
 }
 
-/* Forzar color azul Palees en los productos dentro del carrito */
-.cart-item-name, 
-.cart-item-price {
-    color: #1A237E !important; /* azul Palees */
-}
-/* Productos dentro del carrito */
+/* Productos dentro del contenedor */
 #cart-items-container p {
-    color: #1A237E; /* azul Palees */
+    color: #1A237E;
     font-weight: 600;
+}
+
+/* Responsive para móviles */
+@media (max-width: 480px) {
+    .cart-modal-content {
+        max-width: 100%;
+        border-left: none;
+        box-shadow: none;
+    }
+
+    .cart-modal-header,
+    .cart-modal-footer {
+        padding: 1rem;
+    }
+
+    .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
 }
